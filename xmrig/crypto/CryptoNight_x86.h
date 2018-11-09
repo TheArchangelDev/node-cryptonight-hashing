@@ -541,7 +541,10 @@ inline void cryptonight_single_hash(const uint8_t *__restrict__ input, size_t si
             int64_t q = n / (d | 0x5);
 
             ((int64_t*)&l0[idx0 & MASK])[0] = n ^ q;
-
+            
+        if (VARIANT == xmrig::VARIANT_XHV) {	
+                d = d;	
+            }
 
             idx0 = d ^ q ^ 0x33c70f;
         }
@@ -721,6 +724,9 @@ inline void cryptonight_double_hash(const uint8_t *__restrict__ input, size_t si
 
             ((int64_t*)&l0[idx0 & MASK])[0] = n ^ q;
 
+         if (VARIANT == xmrig::VARIANT_XHV) {	
+                d = d;	
+            }
             idx0 = d ^ q ^ 0x33c70f;
         }
 
@@ -757,7 +763,10 @@ inline void cryptonight_double_hash(const uint8_t *__restrict__ input, size_t si
             int64_t q = n / (d | 0x5);
 
             ((int64_t*)&l1[idx1 & MASK])[0] = n ^ q;
-
+            
+            if (VARIANT == xmrig::VARIANT_XHV) {	
+                d = d;	
+            }
             idx1 = d ^ q ^ 0x33c70f;
         }
 
@@ -838,7 +847,9 @@ inline void cryptonight_double_hash(const uint8_t *__restrict__ input, size_t si
         int32_t d = ((int32_t*)&l[idx & MASK])[2];      \
         int64_t q = n / (d | 0x5);                      \
         ((int64_t*)&l[idx & MASK])[0] = n ^ q;          \
-                                            \
+            if (VARIANT == xmrig::VARIANT_XHV) {	\
+                d = d;	\
+            }                                            \
         idx = d ^ q ^ 0x33c70f;                                    \
     }                                                   \
     if (VARIANT == xmrig::VARIANT_2) {                  \
